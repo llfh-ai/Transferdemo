@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+<!-- Element Cascader 级联选择器,https://element.eleme.cn/#/zh-CN/component/cascader --> 
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.14.1/lib/index.js"></script>
+
+
+<div id="app">
+<template>
+  <el-transfer
+    filterable
+    :filter-method="filterMethod"
+    :titles="['未分配用户组', '已分配用户组']"
+    filter-placeholder="请输入搜索内容"
+    v-model="value"
+    :data="data">
+  </el-transfer>
+</template>
+</div>
+
+    <script>
+var Main = {
+    data() {
+      const generateData = _ => {
+        const data = [];
+        const cities = ['一级管理员组', '二级管理员组', '三级管理员组', '医院管理员组', '科室管理员组', '脱产教师组', '兼职教师组', '普通用户组'];
+        const pinyin = ['admin1', 'admin2', 'admin3', 'admin_hos', 'admin_dep', 'tec1', 'tec2', 'usr'];
+        cities.forEach((city, index) => {
+          data.push({
+            label: city,
+            key: index,
+            pinyin: pinyin[index]
+          });
+        });
+        return data;
+      };
+      return {
+        data: generateData(),
+        value: [],
+        filterMethod(query, item) {
+          return item.pinyin.indexOf(query) > -1;
+        }
+      };
+    }
+  };
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
+    </script>
+</body> 
+</html>
